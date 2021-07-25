@@ -67,7 +67,7 @@ class AuthenticationView extends GetView<AuthenticationController> {
                 bool shouldNavigate = await controller.register(
                     _emailController.text, _passwordController.text);
                 if (shouldNavigate) {
-                  Get.offAll(() => HomeView());
+                  Get.offAllNamed(Routes.HOME);
                 }
               },
               child: Text("Register"),

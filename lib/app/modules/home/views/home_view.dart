@@ -8,8 +8,6 @@ import 'package:get/get.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +31,7 @@ class HomeView extends GetView<HomeController> {
           child: StreamBuilder(
             stream: FirebaseFirestore.instance
                 .collection('Users')
-                .doc(FirebaseAuth.instance.currentUser.uid)
+                .doc(FirebaseAuth.instance.currentUser?.uid)
                 .collection('Coins')
                 .snapshots(),
             builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -49,48 +47,48 @@ class HomeView extends GetView<HomeController> {
                 );
               }
 
-              return Obx(
-                () => ListView(
+              return ListView(
                   children: snapshot.data.docs.map((document) {
                     return Padding(
                       padding: const EdgeInsets.all(15.0),
-                      child: Container(
-                        width: Get.size.width / 1.3,
-                        height: Get.size.height / 12,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16),
-                            color: Colors.blue),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SizedBox(width: 5.0,),
-                            Text(
-                              "Coin: ${document.id}",
-                              style: TextStyle(
-                                fontSize: 18.0,
-                                color: Colors.white,
+                      child: Obx( () => Container(
+                          width: Get.size.width / 1.3,
+                          height: Get.size.height / 12,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16),
+                              color: Colors.blue),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SizedBox(width: 5.0,),
+                              Text(
+                                "Coin: ${document.id}",
+                                style: TextStyle(
+                                  fontSize: 18.0,
+                                  color: Colors.white,
+                                ),
                               ),
-                            ),
-                            Text(
-                              "\$${controller.getValues(document.id, (document.data() as Map)['Amount']).toStringAsFixed(2)}",
-                              style: TextStyle(
-                                fontSize: 18.0,
-                                color: Colors.white,
+                              Text(
+                                "\$${controller.getValues(document.id, (document.data() as Map)['Amount']).toStringAsFixed(2)}",
+                                style: TextStyle(
+                                  fontSize: 18.0,
+                                  color: Colors.white,
+                                ),
                               ),
-                            ),
-                            IconButton(
-                              icon: Icon(Icons.delete),
-                              color: Colors.red,
-                              onPressed: () async {
-                                await controller.removeCoin(document.id);
-                              },
-                            )
-                          ],
+                              IconButton(
+                                icon: Icon(Icons.delete),
+                                color: Colors.red,
+                                onPressed: () async {
+                                  await controller.removeCoin(document.id);
+                                },
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     );
                   }).toList(),
-                ),
+
               );
             },
           ),

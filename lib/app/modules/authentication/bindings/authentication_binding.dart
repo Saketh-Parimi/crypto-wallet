@@ -7,6 +7,7 @@ class AuthenticationBinding extends Bindings {
   void dependencies() {
     Get.lazyPut<AuthenticationController>(
       () => AuthenticationController(),
+      fenix: true
     );
   }
 }
