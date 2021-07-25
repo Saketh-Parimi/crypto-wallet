@@ -1,8 +1,8 @@
 class Coin {
-  String id;
-  String amount;
+  String? id;
+  String? amount;
 
-  Coin({this.id, this.amount});
+  Coin({required this.id, required this.amount});
 
   Coin.fromJson(Map<String, dynamic> json) {
     id = json['id'];

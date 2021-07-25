@@ -48,7 +48,7 @@ class HomeView extends GetView<HomeController> {
               }
 
               return ListView(
-                  children: snapshot.data.docs.map((document) {
+                  children: snapshot.data!.docs.map((document) {
                     return Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: Obx( () => Container(

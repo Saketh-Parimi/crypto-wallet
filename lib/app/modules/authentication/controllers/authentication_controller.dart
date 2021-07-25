@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 class AuthenticationController extends GetxController {
 
   FirebaseAuth _auth = FirebaseAuth.instance;
-  Rx<User> _firebaseUser = Rxn<User>();
+  Rxn<User> _firebaseUser = Rxn<User>();
 
-  User get user => _firebaseUser.value;
+  User? get user => _firebaseUser.value;
 
   @override
   onReady() {
@@ -18,7 +18,8 @@ class AuthenticationController extends GetxController {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
       return true;
     } catch(e) {
-      Get.snackbar('Error signing in', e.message);
+      var error = e.toString();
+      Get.snackbar('Error signing in', error.replaceRange(0, 30, ''));
       return false;
     }
   }
@@ -28,7 +29,8 @@ class AuthenticationController extends GetxController {
       await _auth.createUserWithEmailAndPassword(email: email, password: password);
       return true;
     } catch(e) {
-      Get.snackbar('Error registering', e.message);
+      var error = e.toString();
+      Get.snackbar('Error registering', error.replaceRange(0, 30, ''));
       return false;
     }
   }

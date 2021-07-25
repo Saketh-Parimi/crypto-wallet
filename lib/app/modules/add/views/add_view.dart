@@ -23,8 +23,8 @@ class AddView extends GetView<AddController> {
           Obx(
             () => DropdownButton(
               value: controller.dropdownValue.value,
-              onChanged: (String value) {
-                controller.dropdownValue.value = value;
+              onChanged: (String? value) {
+                controller.dropdownValue.value = value!;
               },
               items: controller.coins
                   .map<DropdownMenuItem<String>>((String value) {

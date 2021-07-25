@@ -21,14 +21,14 @@ class HomeController extends GetxController {
       var value = json['market_data']['current_price']['usd'].toString();
       return double.parse(value);
     } catch (e) {
-      Get.snackbar('Error getting price', e.message);
+      Get.snackbar('Error getting price', e.toString());
       return 0.0;
     }
   }
 
   Future<bool> removeCoin(String id) async {
     try {
-      String uid = authController.user?.uid;
+      String? uid = authController.user?.uid;
       FirebaseFirestore.instance
           .collection('Users')
           .doc(uid)
@@ -37,7 +37,7 @@ class HomeController extends GetxController {
           .delete();
       return true;
     } catch(e) {
-      Get.snackbar('Error deleting item', e.message);
+      Get.snackbar('Error deleting item', e.toString());
       return false;
     }
   }
@@ -47,7 +47,7 @@ class HomeController extends GetxController {
       FirebaseAuth.instance.signOut();
       return true;
     } catch(e) {
-      Get.snackbar('Error signing out', e.message);
+      Get.snackbar('Error signing out', e.toString());
       return false;
     }
   }

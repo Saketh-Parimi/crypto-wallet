@@ -16,7 +16,7 @@ class AddController extends GetxController {
 
   Future<bool> addCoin(String id, String amount) async {
     try {
-      String uid = authController.user?.uid;
+      String? uid = authController.user?.uid;
       var value = double.parse(amount);
       DocumentReference documentReference = FirebaseFirestore.instance
           .collection('Users')
@@ -34,10 +34,10 @@ class AddController extends GetxController {
         return true;
       }).then((value) {
         Get.snackbar('Successful', 'Added coin successfully');
-        return true;
       });
+      return true;
     } catch (e) {
-      Get.snackbar('Error adding coin', e.message);
+      Get.snackbar('Error adding coin', e.toString());
       return false;
     }
   }
